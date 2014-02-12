@@ -35,8 +35,12 @@
 #import "PomodoroNotifier.h"
 #import "PomoNotifications.h"
 #include <CoreServices/CoreServices.h>
+#include <IOKit/pwr_mgt/IOPMLib.h>
 
 @implementation PomodoroController
+{
+    IOPMAssertionID userActivityAssertionId;
+}
 
 @synthesize startPomodoro, finishPomodoro, invalidatePomodoro, interruptPomodoro, internalInterruptPomodoro, resumePomodoro;
 @synthesize growl, pomodoro, longBreakCounter, longBreakCheckerTimer;
@@ -269,7 +273,7 @@
 }
 
 - (void) setFocusOnPomodoro {
-	SetFrontProcess(&psn);
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 
 - (IBAction) start: (id) sender {
@@ -474,7 +478,10 @@
 	}
     
     if ([self checkDefault:@"preventSleepDuringPomodoroBreak"]) {
-        UpdateSystemActivity(OverallAct);
+        IOReturn ir = IOPMAssertionDeclareUserActivity((CFStringRef)@"Pomodoro Break Active", kIOPMUserActiveLocal, &userActivityAssertionId);
+        if (ir != kIOReturnSuccess) {
+            userActivityAssertionId = NULL;
+        }
     }
     
 }
@@ -488,10 +495,12 @@
 	}
     
     if ([self checkDefault:@"preventSleepDuringPomodoro"]) {
-        UpdateSystemActivity(OverallAct);
+        IOReturn ir = IOPMAssertionDeclareUserActivity((CFStringRef)@"Pomodoro Active", kIOPMUserActiveLocal, &userActivityAssertionId);
+        if (ir != kIOReturnSuccess) {
+            userActivityAssertionId = NULL;
+        }
     }
 
-	
 }
 
 
@@ -574,8 +583,6 @@
     
 	stats = [[StatsController alloc] init];
 	[stats window];
-
-	GetCurrentProcess(&psn);
     
 	[self observeUserDefault:@"ringVolume"];
 	[self observeUserDefault:@"ringBreakVolume"];

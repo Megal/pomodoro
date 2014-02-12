@@ -64,7 +64,6 @@
     NSTimer* longBreakCheckerTimer;
     PomodoroNotifier* pomodoroNotifier;
     
-    ProcessSerialNumber psn;
 	AboutController* about;
 	SplashController* splash;
 	StatsController* stats;
