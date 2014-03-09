@@ -171,13 +171,15 @@
 	defaultValues[@"pomodoroName"] = NSLocalizedString(@"Insert here the pomodoro name",@"Pomodoro name prompt");
 	defaultValues[@"startOnLoginEnabled"] = @NO;
 	defaultValues[@"showSplashScreenAtStartup"] = @YES;
- 	defaultValues[@"preventSleepDuringPomodoro"] = @YES;
+	defaultValues[@"preventSleepDuringPomodoro"] = @YES;
 	defaultValues[@"preventSleepDuringPomodoroBreak"] = @NO;   
 	
 	defaultValues[@"thingsEnabled"] = @NO;
 	defaultValues[@"thingsAddingEnabled"] = @NO;
 	defaultValues[@"omniFocusEnabled"] = @NO;
 	defaultValues[@"omniFocusAddingEnabled"] = @NO;
+	defaultValues[@"theHitListEnabled"] = @NO;
+	defaultValues[@"theHitListAddingEnabled"] = @NO;
 	defaultValues[@"remindersEnabled"] = @NO;
 	defaultValues[@"remindersAddingEnabled"] = @NO;
 	defaultValues[@"ichatEnabled"] = @NO;
