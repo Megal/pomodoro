@@ -29,13 +29,13 @@
 	
     BOOL showRelease;
 	IBOutlet NSTextView* __unsafe_unretained aboutText;
-    IBOutlet NSTextField* __weak release;
+    IBOutlet NSTextField* __weak releaseText;
     IBOutlet NSTextField* __weak copyright;
 
 }
 
 @property (unsafe_unretained) IBOutlet NSTextView* aboutText;
-@property (weak, readonly) IBOutlet NSTextField* release;
+@property (weak, readonly) IBOutlet NSTextField* releaseText;
 @property (weak, readonly) NSTextField* copyright;
 
 -(IBAction) switchBetweenReleaseAndBuild: (id) sender;

@@ -28,7 +28,7 @@
 
 @implementation AboutController
 
-@synthesize aboutText, release, copyright;
+@synthesize aboutText, releaseText, copyright;
 
 - (id) init {
 		
@@ -68,7 +68,7 @@
     } else {
         text = [NSString stringWithFormat:NSLocalizedString(@"Build", @"Build Number"), [[self infoValueForKey:@"CFBuildNumber"] intValue]];
     }
-    [release setStringValue:text];
+    [releaseText setStringValue:text];
 
 }
 
