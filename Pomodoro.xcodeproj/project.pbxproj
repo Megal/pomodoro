@@ -126,6 +126,7 @@
 		69ED6411133BB31F003F59BA /* SmartTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED6410133BB31F003F59BA /* SmartTimer.m */; };
 		69ED6414133BB502003F59BA /* SmartTimerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED6413133BB502003F59BA /* SmartTimerTests.m */; };
 		69FCF747135729DD003862DC /* ringBreak.wav in Resources */ = {isa = PBXBuildFile; fileRef = 69FCF746135729DD003862DC /* ringBreak.wav */; };
+		CC5900AE18AB6DAB00F384C7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5900AD18AB6DAB00F384C7 /* IOKit.framework */; };
 		DB4C2A87166888A6000B2718 /* setStatusToAvailableInMessages.applescript in Sources */ = {isa = PBXBuildFile; fileRef = DB4C2A86166888A6000B2718 /* setStatusToAvailableInMessages.applescript */; };
 		DB4C2A89166888D4000B2718 /* setStatusToPomodoroInMessages.applescript in Sources */ = {isa = PBXBuildFile; fileRef = DB4C2A88166888D4000B2718 /* setStatusToPomodoroInMessages.applescript */; };
 		DB4C2A8A166889F0000B2718 /* setStatusToAvailableInMessages.applescript in Resources */ = {isa = PBXBuildFile; fileRef = DB4C2A86166888A6000B2718 /* setStatusToAvailableInMessages.applescript */; };
@@ -439,6 +440,7 @@
 		69ED6413133BB502003F59BA /* SmartTimerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartTimerTests.m; sourceTree = "<group>"; };
 		69FCF746135729DD003862DC /* ringBreak.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ringBreak.wav; sourceTree = "<group>"; };
 		B24CAEAB187B1C06006161A2 /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		CC5900AD18AB6DAB00F384C7 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		DB4C2A86166888A6000B2718 /* setStatusToAvailableInMessages.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = setStatusToAvailableInMessages.applescript; sourceTree = "<group>"; };
 		DB4C2A88166888D4000B2718 /* setStatusToPomodoroInMessages.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = setStatusToPomodoroInMessages.applescript; sourceTree = "<group>"; };
 		DB8AF4F2165EEB0F0039DA49 /* OpenUrlCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenUrlCommand.h; path = src/OpenUrlCommand.h; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC5900AE18AB6DAB00F384C7 /* IOKit.framework in Frameworks */,
 				698F4736133B72BD00311E34 /* BGHUDAppKit.framework in Frameworks */,
 				698F4737133B72BD00311E34 /* OAuthConsumer.framework in Frameworks */,
 				698F4738133B72BD00311E34 /* ShortcutRecorder.framework in Frameworks */,
@@ -767,6 +770,7 @@
 		69AE95E6133B4705004DC14D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC5900AD18AB6DAB00F384C7 /* IOKit.framework */,
 				698F473D133B735400311E34 /* Apple */,
 				69AE95E9133B4705004DC14D /* Other Frameworks */,
 			);
