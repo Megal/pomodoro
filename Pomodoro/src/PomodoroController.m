@@ -51,10 +51,21 @@
 
 - (void) showTimeOnStatusBar:(NSInteger) time {	
 	if ([self checkDefault:@"showTimeOnStatusEnabled"]) {
-		[statusItem setTitle:[NSString stringWithFormat:@" %.2ld:%.2ld",time/60, time%60]];
+		[self setStatusTitle: [NSString stringWithFormat:@" %.2ld:%.2ld",time/60, time%60]];
 	} else {
-		[statusItem setTitle:@""];
+		[statusItem.button setTitle:@""];
 	}
+}
+
+- (void) setStatusTitle:(NSString *) status {
+    [statusItem.button setTitle: status];
+    [statusItem.button setAlternateTitle: status];
+
+    NSMutableAttributedString *attrAlternateTitle = [statusItem.button.attributedAlternateTitle mutableCopy];
+    [attrAlternateTitle addAttribute: NSForegroundColorAttributeName
+                          value: [NSColor selectedMenuItemTextColor]
+                          range: NSMakeRange(0, status.length)];
+    statusItem.button.attributedAlternateTitle = attrAlternateTitle;
 }
 
 - (void) longBreakCheckerFinished {
@@ -180,8 +191,8 @@
 			break;
 	}
     
-	[statusItem setImage:image];
-	[statusItem setAlternateImage:alternateImage];
+	[statusItem.button setImage:image];
+	[statusItem.button setAlternateImage:alternateImage];
 	
 	[startPomodoro             setEnabled:(state == PomoReadyToStart) || ((state == PomoInBreak) && [self checkDefault:@"canRestartAtBreak"])];
 	[finishPomodoro            setEnabled:(state == PomoTicking)];
@@ -394,7 +405,7 @@
 	[[NSUserDefaults standardUserDefaults] setObject: @((_globalPomodoroResumed)+1) forKey:@"globalPomodoroResumed"];
     NSString* name = [NSString stringWithFormat:NSLocalizedString(@"Working on: %@",@"Tooltip for running Pomodoro"), _pomodoroName];
 	[statusItem setToolTip:name];
-	[statusItem setImage:pomodoroImage];
+	[statusItem.button setImage:pomodoroImage];
 
 }
 
@@ -504,7 +515,6 @@
 
 }
 
-
 #pragma mark ---- Lifecycle methods ----
 
 + (void)initialize { 
@@ -535,8 +545,6 @@
 	ringing = [NSSound soundNamed:@"ring.wav"];
 	ringingBreak = [NSSound soundNamed:@"ringBreak.wav"];
 	tick = [NSSound soundNamed:@"tick.wav"];
-	[statusItem setImage:pomodoroImage];
-	[statusItem setAlternateImage:pomodoroNegativeImage];
 		
 	[ringing setVolume:_ringVolume/100.0];
 	[ringingBreak setVolume:_ringBreakVolume/100.0];
@@ -575,8 +583,14 @@
 	[statusItem setToolTip:NSLocalizedString(@"Pomodoro Time Management",@"Status Tooltip")];
 	[statusItem setHighlightMode:YES];
 	[statusItem setMenu:pomodoroMenu];
+
+	statusItem.button.imagePosition = NSImageLeft;
+	statusItem.button.imageHugsTitle = NO;
+	statusItem.button.image = pomodoroImage;
+	statusItem.button.alternateImage = pomodoroNegativeImage;
+
 	[self showTimeOnStatusBar: _initialTime * 60];
-	
+
     [toolBar setSelectedItemIdentifier:@"Pomodoro"];
 
     [pomodoro setDurationMinutes:_initialTime];
