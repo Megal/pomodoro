@@ -28,6 +28,9 @@
 
 @implementation AboutController
 
+@synthesize aboutText;
+@synthesize copyright;
+
 - (id) init {
 		
 	if (![super initWithWindowNibName:@"About"]) return nil;

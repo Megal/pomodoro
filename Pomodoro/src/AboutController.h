@@ -35,7 +35,7 @@
 }
 
 @property (strong) IBOutlet NSTextView* aboutText;
-@property (strong) NSTextField* copyright;
+@property (strong) IBOutlet NSTextField* copyright;
 
 -(IBAction) switchBetweenReleaseAndBuild: (id) sender;
 
