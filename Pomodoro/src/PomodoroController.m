@@ -480,7 +480,7 @@
     if ([self checkDefault:@"preventSleepDuringPomodoroBreak"]) {
         IOReturn ir = IOPMAssertionDeclareUserActivity((CFStringRef)@"Pomodoro Break Active", kIOPMUserActiveLocal, &userActivityAssertionId);
         if (ir != kIOReturnSuccess) {
-            userActivityAssertionId = NULL;
+            userActivityAssertionId = kIOPMNullAssertionID;
         }
     }
     
@@ -497,7 +497,7 @@
     if ([self checkDefault:@"preventSleepDuringPomodoro"]) {
         IOReturn ir = IOPMAssertionDeclareUserActivity((CFStringRef)@"Pomodoro Active", kIOPMUserActiveLocal, &userActivityAssertionId);
         if (ir != kIOReturnSuccess) {
-            userActivityAssertionId = NULL;
+            userActivityAssertionId = kIOPMNullAssertionID;
         }
     }
 
