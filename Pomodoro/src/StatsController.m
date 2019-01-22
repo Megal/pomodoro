@@ -134,7 +134,7 @@
 	
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        managedObjectContext = [[NSManagedObjectContext alloc] init];
+        managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
     
@@ -222,32 +222,29 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	 */
 	
 	NSSavePanel *sp = [NSSavePanel savePanel];	
-	[sp setRequiredFileType:@"txt"];
+	sp.allowedFileTypes = @[@"txt"];
+    sp.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
+    NSInteger runResult = [sp runModal];
 	
-	NSInteger runResult = [sp runModalForDirectory:NSHomeDirectory() file:@""];
-	
-	if (runResult == NSOKButton) {
-		NSLog(@"Created %@", [sp filename]);
-		[[NSFileManager defaultManager] createFileAtPath:[sp filename] contents: nil attributes:nil];
-		NSFileHandle* output = [NSFileHandle fileHandleForWritingAtPath:[sp filename]];
+    if (runResult == NSModalResponseOK) {
+        NSURL *fileURL = [sp URL];
+		[[NSFileManager defaultManager] createFileAtPath:fileURL.path contents:nil attributes:nil];
+        NSLog(@"Created %@", fileURL);
+        NSFileHandle *output = [NSFileHandle fileHandleForWritingAtPath:fileURL.path];
 		[output seekToEndOfFile];
-		NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 		[fetchRequest setEntity:[NSEntityDescription entityForName:@"Pomodoros" inManagedObjectContext:managedObjectContext]];
-		NSError* error;
-		NSArray* results = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+		NSError *error;
+		NSArray *results = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
 		if (error) {
 			NSLog(@"Error %@", error);
 		} else {
-            
-			[self writeFullExport: output results: results];
-
+            [self writeFullExport: output results: results];
 		}
 		
 		[output synchronizeFile];
 		[output closeFile];
 	}
-	
-	
 }
 
 #pragma mark ---- Daily check methods ----
@@ -264,14 +261,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (void) updateDateIfChanged {
 	
 	
-	NSCalendar* cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar* cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	NSDate* today = [NSDate date];
 	if (_dailyStartDate == nil) {
 		[[NSUserDefaults standardUserDefaults] setObject: today forKey:@"dailyStartDate"];
 	} else {
 		
-		NSDateComponents* nowDay = [cal components:NSDayCalendarUnit fromDate:today];
-		NSDateComponents* savedDay = [cal components:NSDayCalendarUnit fromDate:_dailyStartDate];
+		NSDateComponents* nowDay = [cal components:NSCalendarUnitDay fromDate:today];
+		NSDateComponents* savedDay = [cal components:NSCalendarUnitDay fromDate:_dailyStartDate];
 		
 		if ( ([nowDay day] != [savedDay day]) || ([nowDay month] != [savedDay month]) || ([nowDay year] != [savedDay year]) ) {
 			[self resetDailyStatistics:nil];

@@ -56,7 +56,7 @@
 	NSString* scriptText = [scripts objectForKey:scriptId];
 	if (nil == scriptText) {
 		NSString* scriptFileName = [[NSBundle mainBundle] pathForResource: scriptId ofType: @"applescript"];
-		scriptText = [[NSString alloc] initWithContentsOfURL: [NSURL fileURLWithPath: scriptFileName]];
+        scriptText = [[NSString alloc] initWithContentsOfURL: [NSURL fileURLWithPath: scriptFileName] encoding: NSUTF8StringEncoding error:nil];
 		[scripts setObject:scriptText forKey:scriptId];
 	} 
 	NSAppleScript* applescript = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:scriptText, parameter]];

@@ -39,15 +39,14 @@
 - (void)awakeFromNib {
 	
 	NSBundle *bundle = [NSBundle mainBundle];
-	
-	NSString *aboutString = [[NSString alloc] initWithContentsOfFile:[bundle pathForResource:@"splash" ofType:@"html"]];
-	NSAttributedString* aboutHtml = [[NSAttributedString alloc] initWithHTML:[aboutString dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil];
-	[aboutText setLinkTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-									  [NSColor whiteColor], NSForegroundColorAttributeName,nil]];
-	[aboutText insertText:aboutHtml];
-	[aboutText setEditable:NO];
-	
-}
 
+    NSData *aboutData = [[NSData alloc] initWithContentsOfFile:[bundle pathForResource:@"splash" ofType:@"html"]];
+
+    NSAttributedString* aboutHtml = [[NSAttributedString alloc] initWithHTML:aboutData documentAttributes:nil];
+    [aboutText setLinkTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSColor whiteColor], NSForegroundColorAttributeName,nil]];
+    [aboutText.textStorage setAttributedString:aboutHtml];
+	[aboutText setEditable:NO];
+}
 
 @end

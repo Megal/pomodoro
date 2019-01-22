@@ -34,13 +34,16 @@
 #pragma mark ---- Scripting panel delegate methods ----
 
 - (void)openPanelDidEnd:(NSOpenPanel *)openPanel 
-             returnCode:(int)returnCode 
+             returnCode:(NSModalResponse)returnCode
             contextInfo:(void *)x 
 { 
-    if (returnCode == NSOKButton) { 
-		NSString *path = [openPanel filename]; 
-		NSString *script = [[NSString alloc] initWithContentsOfFile:path];
-		[scriptView setSource:script];
+    if (returnCode == NSModalResponseOK) {
+		NSURL *fileURL = [openPanel URL];
+        NSError *error;
+		NSString *script = [[NSString alloc] initWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:&error];
+        if (!error) {
+            [scriptView setSource:script];
+        }
     } 
 } 
 
@@ -55,15 +58,19 @@
 { 
     NSOpenPanel *panel = [NSOpenPanel openPanel]; 
 	[panel setDelegate:self];
-    [panel beginSheetForDirectory:nil 
-                             file:nil 
-							types: [NSArray arrayWithObjects:@"pomo", @"applescript",nil]
-                   modalForWindow:scriptPanel 
-                    modalDelegate:self 
-                   didEndSelector: 
-	 @selector(openPanelDidEnd:returnCode:contextInfo:) 
-                      contextInfo:(__bridge void*)sender];
-} 
+    [panel beginSheetModalForWindow:scriptPanel completionHandler:^(NSModalResponse result) {
+        [self openPanelDidEnd:panel returnCode:result contextInfo:NULL];
+    }];
+
+//    [panel beginSheetForDirectory:nil
+//                             file:nil
+//                            types: [NSArray arrayWithObjects:@"pomo", @"applescript",nil]
+//                   modalForWindow:scriptPanel
+//                    modalDelegate:self
+//                   didEndSelector:
+//     @selector(openPanelDidEnd:returnCode:contextInfo:)
+//                      contextInfo:(__bridge void*)sender];
+}
 
 - (IBAction)showScriptingPanel:(id)sender {
     

@@ -49,13 +49,15 @@
 - (void)awakeFromNib {
     
 	NSBundle *bundle = [NSBundle mainBundle];
-	
-	NSString *aboutString = [[NSString alloc] initWithContentsOfFile:[bundle pathForResource:@"about" ofType:@"html"]];
-	NSAttributedString* aboutHtml = [[NSAttributedString alloc] initWithHTML:[aboutString dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil];
+
+    NSData *aboutData = [[NSData alloc] initWithContentsOfFile:[bundle pathForResource:@"about" ofType:@"html"]];
+
+	NSAttributedString* aboutHtml = [[NSAttributedString alloc] initWithHTML:aboutData documentAttributes:nil];
 	[aboutText setLinkTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 									  [NSColor whiteColor], NSForegroundColorAttributeName,nil]];
-	[aboutText insertText:aboutHtml];
-	[aboutText setEditable:NO];
+    [aboutText.textStorage setAttributedString:aboutHtml];
+    [aboutText setEditable:NO];
+
     [copyright setStringValue:[self infoValueForKey:@"NSHumanReadableCopyright"]];
     
 	[self switchBetweenReleaseAndBuild:nil];
