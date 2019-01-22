@@ -524,6 +524,8 @@
     
 	statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
 
+    statusItem.button.font = [NSFont monospacedDigitSystemFontOfSize:pomodoroMenu.font.pointSize weight:NSFontWeightRegular];
+
 	pomodoroImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"pomodoro" ofType:@"png"]];
     pomodoroImage.template = YES;
 	pomodoroBreakImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"pomodoroBreak" ofType:@"png"]];
