@@ -9,7 +9,9 @@ You can find more information on the Pomodoro Technique at http://www.pomodorote
 ## Developers
 
 Project lead: Ugo Landini
+
 Active Developers: Ugo Landini, Pascal Bihler
+
 Retired Developers: 
  
  ## License
