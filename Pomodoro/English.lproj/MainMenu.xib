@@ -157,7 +157,7 @@
         <dateFormatter timeStyle="short" id="1286" userLabel="Date Formatter"/>
         <menu autoenablesItems="NO" id="10">
             <items>
-                <menuItem title="Start Pomodoro" id="21">
+                <menuItem title="Start Pomodoro…" id="21">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="start:" target="9" id="65"/>
@@ -195,24 +195,25 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="20"/>
-                <menuItem title="Preferences..." id="14">
+                <menuItem title="Preferences" id="14">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="setup:" target="9" id="53"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Pomodoro Stats" id="17">
+                <menuItem title="Stats" id="17">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="stats:" target="9" id="52"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Pomodoro Quick Stats" id="1410">
+                <menuItem title="Quick Stats" id="1410">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="quickStats:" target="9" id="1411"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="Hgx-2f-lS8"/>
                 <menuItem title="Mute all Sounds" id="16">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -226,12 +227,13 @@
                         <action selector="about:" target="9" id="51"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Help on Pomodoro" id="11">
+                <menuItem title="Help" id="11">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="help:" target="9" id="50"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="HrL-V0-MuZ"/>
                 <menuItem title="Quit Pomodoro" id="15">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -239,7 +241,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="78.5" y="-69"/>
+            <point key="canvasLocation" x="140" y="-106"/>
         </menu>
         <window title="Pomodoro Name" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="PomodoroNameWindow" animationBehavior="default" id="26" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES"/>
