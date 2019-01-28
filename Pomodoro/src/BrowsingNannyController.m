@@ -68,14 +68,14 @@ static NSString * const DefaultUrlPattern = @"http*://*.blocked.com/*";
     
     //perform AppleScript in a background thread to keep it from holding up the next tick
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        NSAppleEventDescriptor *result = [scripter executeScript:GetUrlsScriptName];
+        NSAppleEventDescriptor *result = [self.scripter executeScript:GetUrlsScriptName];
         for (NSInteger i = 1; i <= [result numberOfItems]; i++) {
             NSString *urlString = [[result descriptorAtIndex:i] stringValue];
             //NSLog(@"You're browsing %@", urlString);
-            if ([blacklistedPredicate evaluateWithObject:urlString]) {
+            if ([self.blacklistedPredicate evaluateWithObject:urlString]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //NSLog(@"The url %@ is blacklisted. Marking it an interruption!", urlString);
-                    [pomodoroController internalInterrupt:self];
+                    [self.pomodoroController internalInterrupt:self];
                 });
                 //One interruption is enough, don't need to keep going
                 return;

@@ -47,11 +47,8 @@
     } 
 } 
 
-
-- (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename {
-    if ([[filename pathExtension] isEqualTo:@"pomo"] || [[filename pathExtension] isEqualTo:@"applescript"])
-        return YES;
-    return NO;
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
+    return [@[@"pomo", @"applescript"] containsObject:[url pathExtension]];
 }
 
 - (IBAction)showOpenPanel:(id)sender 
