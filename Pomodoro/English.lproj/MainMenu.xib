@@ -195,7 +195,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="20"/>
-                <menuItem title="Preferences" id="14">
+                <menuItem title="Preferences…" id="14">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="setup:" target="9" id="53"/>
@@ -2651,8 +2651,8 @@ DQ
         </window>
     </objects>
     <resources>
-        <image name="NSAdvanced" width="128" height="128"/>
-        <image name="NSPreferencesGeneral" width="128" height="128"/>
+        <image name="NSAdvanced" width="32" height="32"/>
+        <image name="NSPreferencesGeneral" width="32" height="32"/>
         <image name="calendar" width="32" height="32"/>
         <image name="compile" width="32" height="32"/>
         <image name="growl" width="32" height="32"/>
