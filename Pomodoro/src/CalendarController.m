@@ -24,7 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "CalendarController.h"
-#import "CalendarStore/CalendarStore.h"
+#import "EventKit/EventKit.h"
 #import "CalendarHelper.h"
 #import "PomoNotifications.h"
 #import "Pomodoro.h"
@@ -35,15 +35,46 @@
 
 
 - (IBAction)initCalendars:(id)sender {
-    
     [calendarsCombo removeAllItems];
-    for (CalCalendar *cal in [[CalCalendarStore defaultCalendarStore] calendars]){
-        [calendarsCombo addItemWithObjectValue:[cal title]];
-        if ([[cal title] isEqual:_selectedCalendar]){
-            [calendarsCombo selectItemWithObjectValue:[cal title]];
-        }
+    
+    if ([EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent] == EKAuthorizationStatusDenied) {
+        // TODO: Update some UI state here
+        NSLog(@"Calendar access is denied");
+        return;
     }
     
+    EKEventStore *store = [[EKEventStore alloc] init];
+    
+    if ([EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent] == EKAuthorizationStatusAuthorized) {
+        [self updateCalendarListWithStore:store];
+        return;
+    }
+    
+    if ([EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent] == EKAuthorizationStatusNotDetermined) {
+        [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
+            if (granted) {
+                NSLog(@"Calendar store access granted");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateCalendarListWithStore:store];
+                });
+            }
+            else {
+                // TODO: Update some UI state here
+                NSLog(@"Calendar store access denied");
+            }
+        }];
+    }
+}
+
+- (void) updateCalendarListWithStore:(EKEventStore *)store {
+    NSArray<EKCalendar *> *calendars = [store calendarsForEntityType:EKEntityTypeEvent];
+    
+    for (EKCalendar *cal in calendars) {
+        [self.calendarsCombo addItemWithObjectValue:[cal title]];
+        if ([[cal title] isEqual:_selectedCalendar]){
+            [self.calendarsCombo selectItemWithObjectValue:[cal title]];
+        }
+    }
 }
 
 #pragma mark ---- Pomodoro notifications methods ----

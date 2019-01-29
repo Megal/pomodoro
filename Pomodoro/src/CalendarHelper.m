@@ -24,47 +24,62 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "CalendarHelper.h"
-#import "CalendarStore/CalendarStore.h"
+#import "EventKit/EventKit.h"
 
 @implementation CalendarHelper
 
 
-+ (void) publishEvent: (NSString*)selectedCalendar withTitle:(NSString*)title duration:(int)duration {
++ (void) publishEvent: (NSString*)selectedCalendar withTitle:(NSString*)title duration:(int)durationMinutes {
 	
-	CalCalendar *calendar;
-	for (calendar in [[CalCalendarStore defaultCalendarStore] calendars]){
+    EKEventStore *store = [[EKEventStore alloc] init];
+    NSDate *eventEndDate = [NSDate date];
+    
+    
+    NSArray<EKCalendar *>  *calendars = [store calendarsForEntityType:EKEntityTypeEvent];
+    
+	EKCalendar *calendar;
+	for (calendar in calendars) {
 		if ([[calendar title] isEqual:selectedCalendar])
 			break;
-		calendar = NULL;
+		calendar = nil;
 	}
-	if (calendar == NULL){
-		calendar = [CalCalendar calendar];
-		[calendar setTitle:selectedCalendar];
+    
+	if (calendar == nil){
+		calendar = [EKCalendar calendarForEntityType:EKEntityTypeEvent eventStore:store];
+        
+        for (EKSource *source in store.sources) {
+            if (source.sourceType == EKSourceTypeLocal) {
+                calendar.source = source;
+                break;
+            }
+        }
+        
+        calendar.title = selectedCalendar;
 	}
-	
-	CalEvent *event = [CalEvent event];
+    
+    EKEvent *event = [EKEvent eventWithEventStore:store];
 	event.calendar = calendar;
 	event.title = title;
-	event.startDate = [[NSDate date] addTimeInterval:(-60 * duration)];	
-	event.endDate = [NSDate date];
+	event.startDate = [eventEndDate dateByAddingTimeInterval:(-60 * durationMinutes)];
+	event.endDate = eventEndDate;
 	
-	NSError *calError;
+    NSError *calError;
+    
+    BOOL ok = YES;
+    if (ok && ![store saveCalendar:calendar commit:NO error:&calError]) {
+        NSLog(@"Calendar error: %@", calError);
+        ok = NO;
+    }
+    
+    if (ok && ![store saveEvent:event span:EKSpanThisEvent commit:NO error:&calError]) {
+        NSLog(@"Calendar event error: %@", calError);
+        ok = NO;
+    }
 	
-	if ([[CalCalendarStore defaultCalendarStore] saveCalendar:calendar error:&calError] == NO) {
-		//[[NSAlert alertWithError:calError] runModal];
-		NSLog(@"Calendar error: %@", calError);
-	}
-	
-	if ([[CalCalendarStore defaultCalendarStore] saveEvent:event 
-													  span:CalSpanThisEvent 
-													 error:&calError] == NO) {
-		//[[NSAlert alertWithError:calError] runModal];
-		NSLog(@"Calendar event error: %@", calError);
-
-	}
-	
-	
-	
+    if (ok && ![store commit:&calError]) {
+        NSLog(@"Event store  error: %@", calError);
+        ok = NO;
+    }
 }
 
 @end

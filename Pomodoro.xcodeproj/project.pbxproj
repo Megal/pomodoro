@@ -52,7 +52,6 @@
 		698F4656133B5AF900311E34 /* SpeechController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F4607133B5AF900311E34 /* SpeechController.m */; };
 		698F4657133B5AF900311E34 /* SplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F4609133B5AF900311E34 /* SplashController.m */; };
 		698F4658133B5AF900311E34 /* StatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F460B133B5AF900311E34 /* StatsController.m */; };
-		698F46FB133B709600311E34 /* CalendarStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698F46FA133B709600311E34 /* CalendarStore.framework */; };
 		698F4736133B72BD00311E34 /* BGHUDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698F4733133B72BC00311E34 /* BGHUDAppKit.framework */; };
 		698F473A133B72E800311E34 /* Automator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698F4739133B72E800311E34 /* Automator.framework */; };
 		698F473C133B731600311E34 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698F473B133B731600311E34 /* Carbon.framework */; };
@@ -83,6 +82,7 @@
 		69ED6411133BB31F003F59BA /* SmartTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED6410133BB31F003F59BA /* SmartTimer.m */; };
 		69ED6414133BB502003F59BA /* SmartTimerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED6413133BB502003F59BA /* SmartTimerTests.m */; };
 		69FCF747135729DD003862DC /* ringBreak.wav in Resources */ = {isa = PBXBuildFile; fileRef = 69FCF746135729DD003862DC /* ringBreak.wav */; };
+		CC3BFD2822000D9400D9453F /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3BFD2722000D9400D9453F /* EventKit.framework */; };
 		D4C9B86D21B2EAE7004BBA03 /* addTodoToOmniFocus.applescript in CopyFiles */ = {isa = PBXBuildFile; fileRef = 698F45D1133B5AF900311E34 /* addTodoToOmniFocus.applescript */; };
 		D4C9B86E21B2EAE7004BBA03 /* addTodoToThings.applescript in CopyFiles */ = {isa = PBXBuildFile; fileRef = 698F45D2133B5AF900311E34 /* addTodoToThings.applescript */; };
 		D4C9B86F21B2EAE7004BBA03 /* getToDoListFromOmniFocus.applescript in CopyFiles */ = {isa = PBXBuildFile; fileRef = 698F45D3133B5AF900311E34 /* getToDoListFromOmniFocus.applescript */; };
@@ -320,6 +320,7 @@
 		69FCF746135729DD003862DC /* ringBreak.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ringBreak.wav; sourceTree = "<group>"; };
 		BBFD02C1C57C18DE03F16DCA /* Pods-Pomodoro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pomodoro.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pomodoro/Pods-Pomodoro.release.xcconfig"; sourceTree = "<group>"; };
 		CC3BFD2621FFA40300D9453F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CC3BFD2722000D9400D9453F /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		DB4C2A86166888A6000B2718 /* setStatusToAvailableInMessages.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = setStatusToAvailableInMessages.applescript; sourceTree = "<group>"; };
 		DB4C2A88166888D4000B2718 /* setStatusToPomodoroInMessages.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = setStatusToPomodoroInMessages.applescript; sourceTree = "<group>"; };
 		DB8AF4F2165EEB0F0039DA49 /* OpenUrlCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenUrlCommand.h; path = src/OpenUrlCommand.h; sourceTree = "<group>"; };
@@ -337,13 +338,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC3BFD2822000D9400D9453F /* EventKit.framework in Frameworks */,
 				49D7C74A21F6666A00650D34 /* IOKit.framework in Frameworks */,
 				698F4736133B72BD00311E34 /* BGHUDAppKit.framework in Frameworks */,
 				698F473A133B72E800311E34 /* Automator.framework in Frameworks */,
 				69AE95E8133B4705004DC14D /* Cocoa.framework in Frameworks */,
 				698F4748133B7A9100311E34 /* Growl.framework in Frameworks */,
 				698F473C133B731600311E34 /* Carbon.framework in Frameworks */,
-				698F46FB133B709600311E34 /* CalendarStore.framework in Frameworks */,
 				16656CAF1E77972A4E68D0BC /* Pods_Pomodoro.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -562,6 +563,7 @@
 		69AE95E6133B4705004DC14D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC3BFD2722000D9400D9453F /* EventKit.framework */,
 				49D7C74921F6666A00650D34 /* IOKit.framework */,
 				698F473D133B735400311E34 /* Apple */,
 				69AE95E9133B4705004DC14D /* Other Frameworks */,
